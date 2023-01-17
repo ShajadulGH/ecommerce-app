@@ -49,7 +49,7 @@ const Header = () => {
             }
             onClick={hideMenu}
           ></div>
-          <ul>
+          <ul onClick={hideMenu}>
             <li className={styles["logo-mobile"]}>{logo}</li>
             <li>
               <NavLink to="/" className={activeLink}>
