@@ -73,6 +73,7 @@ header .header-right .cart a p {
   top: -1rem;
   right: -1rem;
   font-weight: 500;
+  color: #ff9900;
 }
 header .header-right span {
   margin: 0 5px;
@@ -170,7 +171,7 @@ header .menu-icon {
     top: -1rem;
     left: 5rem;
     font-weight: 500;
-    color: #ffffff;
+    color: #ff9900;
   }
   header .show-nav {
     transform: translateX(0);

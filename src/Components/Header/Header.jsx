@@ -77,9 +77,7 @@ const Header = () => {
             {cart}
           </div>
         </nav>
-
         <div className={styles["menu-icon"]}>
-          {/* {cart} */}
           <HiOutlineMenuAlt3 size={28} onClick={toggleMenu} />
         </div>
       </div>
