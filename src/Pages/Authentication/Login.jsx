@@ -15,7 +15,7 @@ const Login = () => {
         <form>
           <input type="text" placeholder="Email" required />
           <input type="password" placeholder="Password" required />
-          <button type="submit" className="--btn --btn-danger --btn-block">
+          <button type="submit" className="--btn --btn-amazon --btn-block">
             Login
           </button>
           <div className={styles.links}>
@@ -23,8 +23,8 @@ const Login = () => {
           </div>
           <p>-- or --</p>
         </form>
-        <button className="--btn --btn-danger --btn-block">
-          <FaGoogle className={styles.google} color="#ffffff" /> Login With
+        <button className="--btn --btn-amazon --btn-block">
+          <FaGoogle className={styles.google} color="#000000" /> Login With
           Google
         </button>
         <span className={styles.register}>

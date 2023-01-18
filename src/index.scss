@@ -317,6 +317,14 @@ p {
   color: #fff;
   background: #ff9900;
 }
+.--btn-amazon {
+  font-weight: 700;
+  color: #000000;
+  background: linear-gradient(2deg, #ffb700 0%, #fff4da 100%);
+  border: solid #ffae00 1px;
+  cursor: pointer;
+  font-size: 12px;
+}
 
 .--btn-success {
   color: #fff;

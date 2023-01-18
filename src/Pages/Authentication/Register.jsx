@@ -11,7 +11,7 @@ const Register = () => {
           <input type="text" placeholder="Email" required />
           <input type="password" placeholder="Password" required />
           <input type="password" placeholder="Confirm Password" required />
-          <button type="submit" className="--btn --btn-danger --btn-block">
+          <button type="submit" className="--btn --btn-amazon --btn-block">
             Register
           </button>
         </form>

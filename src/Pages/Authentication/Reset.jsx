@@ -10,7 +10,7 @@ const Reset = () => {
         <form>
           <input type="text" placeholder="Email" required />
 
-          <button type="submit" className="--btn --btn-danger --btn-block">
+          <button type="submit" className="--btn --btn-amazon --btn-block">
             Reset Password
           </button>
           <span className={styles.links}>
