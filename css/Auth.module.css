@@ -15,7 +15,8 @@
           animation: slide-up 0.5s ease;
 }
 .auth .form h2 {
-  color: var(--color-danger);
+  color: var(--color-black);
+  font-weight: 700;
   text-align: center;
 }
 .auth .form form input[type=text],
