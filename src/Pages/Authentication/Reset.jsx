@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Auth.module.scss";
-import LoginImage from "../../assets/Images/reset.jpg";
+import LoginImage from "../../assets/Images/reset2.jpg";
 const Reset = () => {
   return (
     <section className={`container ${styles.auth}`}>
