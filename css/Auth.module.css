@@ -46,6 +46,9 @@
   align-items: center;
   margin-top: 1rem;
 }
+.auth .google {
+  margin-right: 5px;
+}
 @-webkit-keyframes slide-up {
   0% {
     transform: translateY(-5rem);

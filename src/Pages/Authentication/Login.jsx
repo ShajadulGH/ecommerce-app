@@ -24,7 +24,8 @@ const Login = () => {
           <p>-- or --</p>
         </form>
         <button className="--btn --btn-danger --btn-block">
-          <FaGoogle color="#ffffff" /> Login With Google
+          <FaGoogle className={styles.google} color="#ffffff" /> Login With
+          Google
         </button>
         <span className={styles.register}>
           <p>Don't have an account?</p>
