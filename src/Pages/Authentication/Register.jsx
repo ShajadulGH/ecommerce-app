@@ -5,6 +5,9 @@ import LoginImage from "../../assets/Images/register.jpg";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { auth } from "../../Firebase/config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -14,6 +17,14 @@ const Register = () => {
     if (password !== confirmPassword) {
       toast.error("Password Miss Match!!!");
     }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
     console.log(email, password, confirmPassword);
   };
   return (
