@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Auth.module.scss";
 import LoginImage from "../../assets/Images/register.jpg";
 import { useState } from "react";
@@ -12,19 +12,25 @@ const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error("Password Miss Match!!!");
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          toast.success("Succesfully Registered");
+          navigate("/login");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+
     console.log(email, password, confirmPassword);
   };
   return (
