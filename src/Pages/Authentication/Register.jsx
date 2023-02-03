@@ -7,14 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "../../Firebase/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
 const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState();
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (password !== confirmPassword) {
       toast.error("Password Miss Match!!!");
     } else {
@@ -24,6 +25,7 @@ const Register = () => {
           console.log(user);
           toast.success("Succesfully Registered");
           navigate("/login");
+          setIsLoading(false);
         })
         .catch((error) => {
           const errorCode = error.code;
