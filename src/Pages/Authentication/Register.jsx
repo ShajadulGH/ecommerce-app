@@ -19,6 +19,7 @@ const Register = () => {
     setIsLoading(true);
     if (password !== confirmPassword) {
       toast.error("Password Miss Match!!!");
+      setIsLoading(false);
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
