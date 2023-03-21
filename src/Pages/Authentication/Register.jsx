@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Auth.module.scss";
 import LoginImage from "../../assets/Images/register.jpg";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { auth } from "../../Firebase/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Loader from "../../Components/Loader/Loader";
@@ -40,7 +39,6 @@ const Register = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <ToastContainer />
       <section className={`container ${styles.auth}`}>
         <div className={styles.form}>
           <h2>Register</h2>

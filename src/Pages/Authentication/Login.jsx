@@ -5,7 +5,7 @@ import { FaGoogle } from "react-icons/fa";
 import LoginImage from "../../assets/Images/login.jpg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/config";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Loader from "../../Components/Loader/Loader";
 
 const Login = () => {
@@ -34,7 +34,6 @@ const Login = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <ToastContainer />
       <section className={`container ${styles.auth}`}>
         <div className={styles.img}>
           <img src={LoginImage} alt="Login" width={400} />

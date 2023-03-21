@@ -4,9 +4,13 @@ import { Home, Contact } from "./Pages/ExportPages";
 import { Login, Register, Reset } from "./Pages/ExportPages";
 // Componets
 import { Header, Footer } from "./Components/ExportComponents";
+// Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
+      <ToastContainer />
       <BrowserRouter>
         <Header />
         <Routes>
