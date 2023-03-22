@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/config";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader/Loader";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -28,7 +29,20 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        toast.error(errorMessage);
         setIsLoading(false);
+      });
+  };
+  // Sign In With Google
+  const provider = new GoogleAuthProvider();
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("Successfully Loged In");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   };
   return (
@@ -62,7 +76,10 @@ const Login = () => {
             </div>
             <p>-- or --</p>
           </form>
-          <button className="--btn --btn-amazon --btn-block">
+          <button
+            className="--btn --btn-amazon --btn-block"
+            onClick={signInWithGoogle}
+          >
             <FaGoogle className={styles.google} color="#000000" /> Login With
             Google
           </button>
