@@ -1,6 +1,5 @@
 .fixed {
   width: 100%;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   transition: all 0.5s;

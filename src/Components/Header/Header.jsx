@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { signOut } from "firebase/auth";
+import { FaUserCircle } from "react-icons/fa";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/config";
 import { toast } from "react-toastify";
 const logo = (
@@ -28,6 +29,7 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [displayUser, setDisplayUser] = useState();
   // const [toggleMenu, setToggleMenu] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => {
@@ -47,6 +49,18 @@ const Header = () => {
         // An error happened.
       });
   };
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //User is sugned in
+        console.log(user);
+        setDisplayUser(user.displayName);
+      } else {
+        // User is signed out
+        setDisplayUser("");
+      }
+    });
+  }, []);
   return (
     <header className={styles.fixed}>
       <div className={styles.header}>
@@ -79,18 +93,31 @@ const Header = () => {
           </ul>
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
-              <NavLink to="/login" className={activeLink}>
-                Login
-              </NavLink>
-              <NavLink to="/register" className={activeLink}>
-                Register
-              </NavLink>
+              {displayUser && (
+                <a href="#home" style={{ color: "#ff9900" }}>
+                  {/* <FaUserCircle size={16} /> */}
+                  Hi, {displayUser}
+                </a>
+              )}
+              {!displayUser && (
+                <NavLink to="/login" className={activeLink}>
+                  Login
+                </NavLink>
+              )}
+              {!displayUser && (
+                <NavLink to="/register" className={activeLink}>
+                  Register
+                </NavLink>
+              )}
+
               <NavLink to="/my-orders" className={activeLink}>
                 My Orders
               </NavLink>
-              <NavLink to="/login" onClick={logoutHandler}>
-                Log Out
-              </NavLink>
+              {displayUser && (
+                <NavLink to="/login" onClick={logoutHandler}>
+                  Log Out
+                </NavLink>
+              )}
             </span>
             {cart}
           </div>
