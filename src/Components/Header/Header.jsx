@@ -7,6 +7,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/config";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { isUserActive } from "../../Redux/Features/authSlice";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -30,6 +32,7 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [displayUser, setDisplayUser] = useState();
+  const dispatch = useDispatch();
   // const [toggleMenu, setToggleMenu] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => {
@@ -54,7 +57,20 @@ const Header = () => {
       if (user) {
         //User is sugned in
         console.log(user);
-        setDisplayUser(user.displayName);
+        if (!user.displayName) {
+          const tempUser = user.email.substring(0, user.email.indexOf("@"));
+          const uName = tempUser.charAt(0).toUpperCase() + tempUser.slice(1);
+          setDisplayUser(uName);
+        } else {
+          setDisplayUser(user.displayName);
+        }
+        dispatch(
+          isUserActive({
+            email: user.email,
+            userName: user.displayName,
+            userID: user.uid,
+          })
+        );
       } else {
         // User is signed out
         setDisplayUser("");
