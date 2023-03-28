@@ -8,7 +8,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../Firebase/config";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { isUserActive } from "../../Redux/Features/authSlice";
+import { isUserActive, removeActiveUser } from "../../Redux/Features/authSlice";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -73,6 +73,7 @@ const Header = () => {
         );
       } else {
         // User is signed out
+        dispatch(removeActiveUser());
         setDisplayUser("");
       }
     });

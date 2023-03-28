@@ -19,10 +19,17 @@ const authSlice = createSlice({
         (state.userID = userID),
         (state.userName = userName);
     },
+    removeActiveUser: (state, action) => {
+      (state.isLoggedIn = false),
+        (state.email = null),
+        (state.userID = null),
+        (state.userName = null);
+      console.log(state.isLoggedIn);
+    },
   },
 });
 
-export const { isUserActive } = authSlice.actions;
+export const { isUserActive, removeActiveUser } = authSlice.actions;
 export const selectIsLoogedIn = (state) => state.auth.isLoggedIn;
 export const selectEmail = (state) => state.auth.email;
 export const selectUserName = (state) => state.auth.userName;
