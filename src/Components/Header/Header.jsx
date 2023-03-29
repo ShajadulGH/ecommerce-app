@@ -9,6 +9,7 @@ import { auth } from "../../Firebase/config";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { isUserActive, removeActiveUser } from "../../Redux/Features/authSlice";
+import { OnLoggedIn, OnLoggedOut } from "../ShowHideLinks/ShowHideLinks";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -110,31 +111,32 @@ const Header = () => {
           </ul>
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
-              {displayUser && (
+              <OnLoggedIn>
                 <a href="#home" style={{ color: "#ff9900" }}>
                   {/* <FaUserCircle size={16} /> */}
                   Hi, {displayUser}
                 </a>
-              )}
-              {!displayUser && (
+              </OnLoggedIn>
+              <OnLoggedOut>
                 <NavLink to="/login" className={activeLink}>
                   Login
                 </NavLink>
-              )}
-              {!displayUser && (
+              </OnLoggedOut>
+              <OnLoggedOut>
                 <NavLink to="/register" className={activeLink}>
                   Register
                 </NavLink>
-              )}
-
-              <NavLink to="/my-orders" className={activeLink}>
-                My Orders
-              </NavLink>
-              {displayUser && (
+              </OnLoggedOut>
+              <OnLoggedIn>
+                <NavLink to="/my-orders" className={activeLink}>
+                  My Orders
+                </NavLink>
+              </OnLoggedIn>
+              <OnLoggedIn>
                 <NavLink to="/login" onClick={logoutHandler}>
                   Log Out
                 </NavLink>
-              )}
+              </OnLoggedIn>
             </span>
             {cart}
           </div>
