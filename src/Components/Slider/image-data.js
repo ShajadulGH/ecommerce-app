@@ -19,8 +19,8 @@ export const imageData = [
   },
   {
     id: 4,
-    image: "https://i.ibb.co/H2FRmtV/bg-3.jpg",
-    heading: "Awesome Gadgets",
+    image: "https://m.media-amazon.com/images/I/61um60VOoeL._SX3000_.jpg",
+    heading: "Awesome Products",
     desc: "Up to 30% off on all onsale proucts.",
   },
 ];
