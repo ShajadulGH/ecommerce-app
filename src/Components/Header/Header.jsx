@@ -101,7 +101,9 @@ const Header = () => {
             <li className={styles["logo-mobile"]}>{logo}</li>
             <AdminOnlyRoute>
               <li>
-                <button className="--btn --btn-amazon">Admin</button>
+                <NavLink to="/admin/home">
+                  <button className="--btn --btn-amazon">Admin</button>
+                </NavLink>
               </li>
             </AdminOnlyRoute>
             <li>
