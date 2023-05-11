@@ -1,12 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Pages
-import { Home, Contact } from "./Pages/ExportPages";
-import { Login, Register, Reset } from "./Pages/ExportPages";
+import {
+  Login,
+  Register,
+  Reset,
+  Admin,
+  Home,
+  Contact,
+} from "./Pages/ExportPages";
 // Componets
 import { Header, Footer } from "./Components/ExportComponents";
 // Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminOnlyRoute from "./Components/AdminOnlyRoute/AdminOnlyRoute";
 function App() {
   return (
     <>
@@ -19,6 +26,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
+          <Route
+            path="/admin/*"
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          ></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
