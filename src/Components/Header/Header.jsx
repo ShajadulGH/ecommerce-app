@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { isUserActive, removeActiveUser } from "../../Redux/Features/authSlice";
 import { OnLoggedIn, OnLoggedOut } from "../ShowHideLinks/ShowHideLinks";
-import AdminOnlyRoute from "../AdminOnlyRoute/AdminOnlyRoute";
+import AdminOnlyRoute, {
+  AdminOnlyLink,
+} from "../AdminOnlyRoute/AdminOnlyRoute";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -99,13 +101,13 @@ const Header = () => {
           ></div>
           <ul onClick={hideMenu}>
             <li className={styles["logo-mobile"]}>{logo}</li>
-            <AdminOnlyRoute>
+            <AdminOnlyLink>
               <li>
-                <NavLink to="/admin/home">
+                <Link to="/admin/home">
                   <button className="--btn --btn-amazon">Admin</button>
-                </NavLink>
+                </Link>
               </li>
-            </AdminOnlyRoute>
+            </AdminOnlyLink>
             <li>
               <NavLink to="/" className={activeLink}>
                 Home
