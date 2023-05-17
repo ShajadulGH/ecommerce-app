@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./AddProduct.module.scss";
 import Card from "../../Card/Card";
 import { useState } from "react";
+import { storage } from "../../../Firebase/config";
+import { ref, uploadBytesResumable } from "firebase/storage";
 const AddProduct = () => {
   const categories = [
     { id: 1, name: "Laptop" },
@@ -17,15 +19,27 @@ const AddProduct = () => {
     brand: "",
     desc: "",
   };
-  const [product, setProducts] = useState(initialProduct);
-  const handleProductDetails = () => {};
-  const handleProductImage = () => {};
+  const [product, setProduct] = useState(initialProduct);
+  const handleProductDetails = (e) => {
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
+  const handleProductImage = (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `images/${Date.now()}${file.name}`);
+    // Upload the file and metadata
+    const uploadTask = uploadBytesResumable(storageRef, file);
+  };
+  const addProduct = (e) => {
+    e.preventDefault();
+    console.log(product);
+  };
   return (
     <>
       <div className={styles.product}>
         <h2>Add Product</h2>
         <Card extraCSS={styles.card}>
-          <form>
+          <form onSubmit={addProduct}>
             <label>Product name:</label>
             <input
               type="text"
@@ -55,22 +69,14 @@ const AddProduct = () => {
             </Card>
             <label>Product Price:</label>
             <input
-              type="text"
+              type="number"
               placeholder="Product name"
               required
-              name="name"
-              value={product.name}
+              name="price"
+              value={product.price}
               onChange={(e) => handleProductDetails(e)}
             />
-            <label>Product Price:</label>
-            <input
-              type="text"
-              placeholder="Product name"
-              required
-              name="name"
-              value={product.name}
-              onChange={(e) => handleProductDetails(e)}
-            />
+
             <label>Product Category:</label>
             <select
               required
@@ -82,7 +88,7 @@ const AddProduct = () => {
                 -- Choose Product Category --
               </option>
               {categories.map((category) => (
-                <option key={category.id} value={category.name} disabled>
+                <option key={category.id} value={category.name}>
                   {category.name}
                 </option>
               ))}
