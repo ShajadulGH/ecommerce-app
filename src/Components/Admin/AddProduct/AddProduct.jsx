@@ -3,7 +3,8 @@ import styles from "./AddProduct.module.scss";
 import Card from "../../Card/Card";
 import { useState } from "react";
 import { storage } from "../../../Firebase/config";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { toast } from "react-toastify";
 const AddProduct = () => {
   const categories = [
     { id: 1, name: "Laptop" },
@@ -20,6 +21,7 @@ const AddProduct = () => {
     desc: "",
   };
   const [product, setProduct] = useState(initialProduct);
+  const [uploadProgress, setUploadProgreass] = useState(0);
   const handleProductDetails = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -29,6 +31,29 @@ const AddProduct = () => {
     const storageRef = ref(storage, `images/${Date.now()}${file.name}`);
     // Upload the file and metadata
     const uploadTask = uploadBytesResumable(storageRef, file);
+    console.log(uploadTask);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgreass(progress);
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+        toast.error(error.message);
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setProduct({ ...product, imageURL: downloadURL });
+        });
+        toast.success("Image uploaded successfully");
+      }
+    );
   };
   const addProduct = (e) => {
     e.preventDefault();
@@ -51,14 +76,19 @@ const AddProduct = () => {
             />
             <label>Product Image:</label>
             <Card extraCSS={styles.group}>
-              <div className={styles.progress}>
-                <div
-                  className={styles["progress-bar"]}
-                  style={{ width: "50%" }}
-                >
-                  Uploading 50%
+              {uploadProgress === 0 ? null : (
+                <div className={styles.progress}>
+                  <div
+                    className={styles["progress-bar"]}
+                    style={{ width: `${uploadProgress}%` }}
+                  >
+                    {uploadProgress < 100
+                      ? `Uploading ${uploadProgress}%`
+                      : `Uploaded ${uploadProgress}%`}
+                  </div>
                 </div>
-              </div>
+              )}
+
               <input
                 type="file"
                 accept="image/*"
@@ -66,6 +96,9 @@ const AddProduct = () => {
                 name="image"
                 onChange={(e) => handleProductImage(e)}
               />
+              {product.imageURL === "" ? null : (
+                <input disabled type="text" value={product.imageURL} />
+              )}
             </Card>
             <label>Product Price:</label>
             <input
