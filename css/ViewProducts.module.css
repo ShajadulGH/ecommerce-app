@@ -1,0 +1,38 @@
+.table {
+  padding: 5px;
+  width: 100%;
+  overflow-x: auto;
+}
+.table .search {
+  width: 100%;
+  max-width: 300px;
+}
+.table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.4rem;
+}
+.table table thead {
+  border-top: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+}
+.table table th {
+  border: 1px solid #eee;
+}
+.table table th,
+.table table td {
+  vertical-align: top;
+  text-align: left;
+  padding: 8px;
+}
+.table table th.icons > *,
+.table table td.icons > * {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.table table tr {
+  border-bottom: 1px solid #ccc;
+}
+.table table tr:nth-child(even) {
+  background-color: #eee;
+}
