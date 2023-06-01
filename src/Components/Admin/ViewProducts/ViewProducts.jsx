@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ViewProducts.module.scss";
+import Loader from "../../Loader/Loader";
 import {
   collection,
   getDocs,
@@ -12,10 +13,13 @@ import { toast } from "react-toastify";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     getProducts();
   }, []);
   const getProducts = () => {
+    setIsLoading(true);
+
     try {
       const productsRef = collection(db, "products");
       const q = query(productsRef, orderBy("createdAt", "desc"));
@@ -27,12 +31,15 @@ const ViewProducts = () => {
         }));
         setAllProducts(products);
       });
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       toast.error(error.message);
     }
   };
   return (
     <>
+      {isLoading && <Loader />}
       <div className={styles.table}>
         <h2>All Products</h2>
         {allProducts.length === 0 ? (
