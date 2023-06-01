@@ -2,9 +2,12 @@ import React from "react";
 import styles from "./AddProduct.module.scss";
 import Card from "../../Card/Card";
 import { useState } from "react";
-import { storage } from "../../../Firebase/config";
+import { db, storage } from "../../../Firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../Loader/Loader";
 const AddProduct = () => {
   const categories = [
     { id: 1, name: "Laptop" },
@@ -22,6 +25,8 @@ const AddProduct = () => {
   };
   const [product, setProduct] = useState(initialProduct);
   const [uploadProgress, setUploadProgreass] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const handleProductDetails = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -57,10 +62,26 @@ const AddProduct = () => {
   };
   const addProduct = (e) => {
     e.preventDefault();
-    console.log(product);
+    setIsLoading(true);
+    // import { collection, addDoc } from "firebase/firestore";
+
+    // Add a new document with a generated id.
+    try {
+      const docRef = addDoc(collection(db, "products"), {
+        ...product,
+        createdAt: Timestamp.now().toDate(),
+      });
+      setIsLoading(false);
+      setProduct(initialProduct);
+      toast.success("Product saved successfully");
+      navigate("/admin/view-products");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <>
+      {isLoading && <Loader />}
       <div className={styles.product}>
         <h2>Add Product</h2>
         <Card extraCSS={styles.card}>
