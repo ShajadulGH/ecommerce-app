@@ -18,7 +18,7 @@ const AddProduct = () => {
   const initialProduct = {
     name: "",
     imageURL: "",
-    price: 0,
+    price: "",
     category: "",
     brand: "",
     desc: "",
@@ -69,6 +69,7 @@ const AddProduct = () => {
     try {
       const docRef = addDoc(collection(db, "products"), {
         ...product,
+        price: Number(product.price),
         createdAt: Timestamp.now().toDate(),
       });
       setIsLoading(false);
