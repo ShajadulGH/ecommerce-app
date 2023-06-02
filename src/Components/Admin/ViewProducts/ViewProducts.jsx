@@ -14,6 +14,7 @@ import { db, storage } from "../../../Firebase/config";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { deleteObject, ref } from "firebase/storage";
+import Notiflix from "notiflix";
 const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +51,26 @@ const ViewProducts = () => {
     } catch (error) {
       toast.error(error.message);
     }
+  };
+  const confirmDelete = (id, imageURL) => {
+    Notiflix.Confirm.show(
+      "Delete Product",
+      "Do you want to delete?",
+      "Delete",
+      "Cancel",
+      function okCb() {
+        deleteProduct(id, imageURL);
+      },
+      function cancelCb() {
+        console.log("Canceled!");
+      },
+      {
+        width: "320px",
+        borderRadius: "8px",
+        titleColor: "black",
+        okButtonBackground: "red",
+      }
+    );
   };
   return (
     <>
@@ -92,7 +113,7 @@ const ViewProducts = () => {
                       <FaTrashAlt
                         size={18}
                         color="red"
-                        onClick={() => deleteProduct(id, imageURL)}
+                        onClick={() => confirmDelete(id, imageURL)}
                       />
                     </td>
                   </tr>
