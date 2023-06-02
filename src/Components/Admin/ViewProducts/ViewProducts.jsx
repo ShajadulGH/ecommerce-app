@@ -3,14 +3,17 @@ import styles from "./ViewProducts.module.scss";
 import Loader from "../../Loader/Loader";
 import {
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   onSnapshot,
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../../../Firebase/config";
+import { db, storage } from "../../../Firebase/config";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { deleteObject, ref } from "firebase/storage";
 const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +37,17 @@ const ViewProducts = () => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      toast.error(error.message);
+    }
+  };
+  // Delete Product
+  const deleteProduct = async (id, imageURL) => {
+    try {
+      await deleteDoc(doc(db, "products", id));
+      const imageRef = ref(storage, imageURL);
+      await deleteObject(imageRef);
+      toast.success("Succesfully deleted product!");
+    } catch (error) {
       toast.error(error.message);
     }
   };
@@ -75,7 +89,11 @@ const ViewProducts = () => {
                     <td className={styles.icons}>
                       <FaEdit size={20} color="green" />
                       &nbsp;
-                      <FaTrashAlt size={18} color="red" />
+                      <FaTrashAlt
+                        size={18}
+                        color="red"
+                        onClick={() => deleteProduct(id, imageURL)}
+                      />
                     </td>
                   </tr>
                 );
