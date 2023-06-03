@@ -15,9 +15,12 @@ import { toast } from "react-toastify";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { deleteObject, ref } from "firebase/storage";
 import Notiflix from "notiflix";
+import { useDispatch } from "react-redux";
+import { GET_PRODUCTS } from "../../../Redux/Features/prouctsSlice";
 const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     getProducts();
   }, []);
@@ -34,6 +37,11 @@ const ViewProducts = () => {
           ...doc.data(),
         }));
         setAllProducts(products);
+        dispatch(
+          GET_PRODUCTS({
+            products,
+          })
+        );
       });
       setIsLoading(false);
     } catch (error) {
