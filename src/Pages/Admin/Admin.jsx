@@ -16,7 +16,7 @@ const Admin = () => {
       <div className={styles.content}>
         <Routes>
           <Route path="home" element={<Home />} />
-          <Route path="add-product" element={<AddProduct />} />
+          <Route path="add-product/:id" element={<AddProduct />} />
           <Route path="view-products" element={<ViewProducts />} />
           <Route path="orders" element={<ViewOrders />} />
         </Routes>

@@ -17,6 +17,7 @@ import { deleteObject, ref } from "firebase/storage";
 import Notiflix from "notiflix";
 import { useDispatch } from "react-redux";
 import { GET_PRODUCTS } from "../../../Redux/Features/prouctsSlice";
+import { Link } from "react-router-dom";
 const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -116,8 +117,10 @@ const ViewProducts = () => {
                     <td>{category}</td>
                     <td>{`৳${price}`}</td>
                     <td className={styles.icons}>
-                      <FaEdit size={20} color="green" />
-                      &nbsp;
+                      <Link to={`/admin/add-product/${id}`}>
+                        <FaEdit size={20} color="green" />
+                        &nbsp;
+                      </Link>
                       <FaTrashAlt
                         size={18}
                         color="red"
