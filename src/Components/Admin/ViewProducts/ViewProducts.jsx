@@ -22,6 +22,7 @@ const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
     getProducts();
   }, []);

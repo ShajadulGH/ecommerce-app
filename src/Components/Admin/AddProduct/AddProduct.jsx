@@ -6,7 +6,7 @@ import { db, storage } from "../../../Firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 const AddProduct = () => {
   const categories = [
@@ -27,6 +27,8 @@ const AddProduct = () => {
   const [uploadProgress, setUploadProgreass] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
   const handleProductDetails = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -80,11 +82,17 @@ const AddProduct = () => {
       toast.error(error.message);
     }
   };
+  const detectForm = (id, title1, title2) => {
+    if (id === "ADD") {
+      return title1;
+    }
+    return title2;
+  };
   return (
     <>
       {isLoading && <Loader />}
       <div className={styles.product}>
-        <h2>Add Product</h2>
+        <h2>{detectForm(id, "Add Product", "Edit Product")}</h2>
         <Card extraCSS={styles.card}>
           <form onSubmit={addProduct}>
             <label>Product name:</label>
