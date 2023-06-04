@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../Loader/Loader";
+import { selectProducts } from "../../../Redux/Features/prouctsSlice";
+import { useSelector } from "react-redux";
 const AddProduct = () => {
   const categories = [
     { id: 1, name: "Laptop" },
@@ -23,12 +25,20 @@ const AddProduct = () => {
     brand: "",
     desc: "",
   };
-  const [product, setProduct] = useState(initialProduct);
+  const { id } = useParams();
+  console.log(id);
+  const selectedProducts = useSelector(selectProducts);
+  console.log(selectedProducts);
+  const productToEdit = selectedProducts?.find((item) => item.id === id);
+  console.log(productToEdit);
+  const [product, setProduct] = useState(() => {
+    const productValue = detectForm(id, { ...initialProduct }, productToEdit);
+    return productValue;
+  });
   const [uploadProgress, setUploadProgreass] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { id } = useParams();
-  console.log(id);
+
   const handleProductDetails = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -82,19 +92,31 @@ const AddProduct = () => {
       toast.error(error.message);
     }
   };
-  const detectForm = (id, title1, title2) => {
-    if (id === "ADD") {
-      return title1;
+  const editProduct = () => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      setIsLoading(false);
+      setProduct(initialProduct);
+      toast.success("Product saved successfully");
+      navigate("/admin/view-products");
+    } catch (error) {
+      toast.error(error.message);
     }
-    return title2;
   };
+  function detectForm(id, con1, con2) {
+    if (id === "ADD") {
+      return con1;
+    }
+    return con2;
+  }
   return (
     <>
       {isLoading && <Loader />}
       <div className={styles.product}>
         <h2>{detectForm(id, "Add Product", "Edit Product")}</h2>
         <Card extraCSS={styles.card}>
-          <form onSubmit={addProduct}>
+          <form onSubmit={detectForm(id, addProduct, editProduct)}>
             <label>Product name:</label>
             <input
               type="text"
@@ -174,7 +196,9 @@ const AddProduct = () => {
               cols="30"
               rows="10"
             ></textarea>
-            <button className="--btn --btn-primary">Save Product</button>
+            <button className="--btn --btn-primary">
+              {detectForm(id, "Save Product", "Edit Product")}
+            </button>
           </form>
         </Card>
       </div>

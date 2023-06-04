@@ -5,18 +5,16 @@ const initialState = {
 };
 
 const prouctsSlice = createSlice({
-  name: "products",
+  name: "product",
   initialState,
   reducers: {
     GET_PRODUCTS(state, action) {
-      console.log(action.payload);
       state.products = action.payload;
-      console.log(state.products);
     },
   },
 });
 
 export const { GET_PRODUCTS } = prouctsSlice.actions;
-export const selectProducts = (state) => state.products.products;
+export const selectProducts = (state) => state.product.products.products;
 
 export default prouctsSlice.reducer;

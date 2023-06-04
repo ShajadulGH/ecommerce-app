@@ -3,7 +3,7 @@ import authSlice from "./Features/authSlice";
 import prouctsSlice from "./Features/prouctsSlice";
 const rootReducer = combineReducers({
   userAuth: authSlice,
-  products: prouctsSlice,
+  product: prouctsSlice,
 });
 
 const store = configureStore({
