@@ -1,56 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./ViewProducts.module.scss";
 import Loader from "../../Loader/Loader";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../../Firebase/config";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { deleteObject, ref } from "firebase/storage";
 import Notiflix from "notiflix";
 import { useDispatch } from "react-redux";
-import { GET_PRODUCTS } from "../../../Redux/Features/prouctsSlice";
+import { STORE_PRODUCTS } from "../../../Redux/Features/prouctsSlice";
 import { Link } from "react-router-dom";
+import FetchData from "../../../CustomHooks/FetchData";
 const ViewProducts = () => {
-  const [allProducts, setAllProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { allProducts, isLoading } = FetchData("products");
   const dispatch = useDispatch();
-
   useEffect(() => {
-    getProducts();
-  }, []);
-  const getProducts = () => {
-    setIsLoading(true);
+    dispatch(STORE_PRODUCTS(allProducts));
+  }, [allProducts, dispatch]);
 
-    try {
-      const productsRef = collection(db, "products");
-      const q = query(productsRef, orderBy("createdAt", "desc"));
-
-      onSnapshot(q, (snapshot) => {
-        const products = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setAllProducts(products);
-        dispatch(
-          GET_PRODUCTS({
-            products,
-          })
-        );
-      });
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      toast.error(error.message);
-    }
-  };
   // Delete Product
   const deleteProduct = async (id, imageURL) => {
     try {
