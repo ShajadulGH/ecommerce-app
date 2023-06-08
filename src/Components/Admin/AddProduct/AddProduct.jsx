@@ -38,11 +38,12 @@ const AddProduct = () => {
     desc: "",
   };
   const { id } = useParams();
-  console.log(id);
+
   const selectedProducts = useSelector(selectProducts);
-  console.log(selectedProducts);
-  const productToEdit = selectedProducts?.find((item) => item.id === id);
-  console.log(productToEdit);
+  if (id !== "ADD") {
+    var productToEdit = selectedProducts?.find((item) => item.id === id);
+  }
+
   const [product, setProduct] = useState(() => {
     const productValue = detectForm(id, { ...initialProduct }, productToEdit);
     return productValue;
