@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Products.module.scss";
 import FilterProduct from "./FilterProduct/FilterProduct";
-import ProductLIst from "./ProductList/ProductLIst";
+import ProductList from "./ProductList/ProductLIst";
+import FetchData from "../../CustomHooks/FetchData";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  STORE_PRODUCTS,
+  selectProducts,
+} from "../../Redux/Features/prouctsSlice";
+
 const Products = () => {
+  const { allProducts, isLoading } = FetchData("products");
+
+  const products = useSelector(selectProducts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      STORE_PRODUCTS({
+        allProducts,
+      })
+    );
+  }, [allProducts, dispatch]);
   return (
     <section>
       <div className={`container ${styles.product}`}>
@@ -10,7 +29,7 @@ const Products = () => {
           <FilterProduct />
         </aside>
         <div className={styles.content}>
-          <ProductLIst />
+          <ProductList products={allProducts} />
         </div>
       </div>
     </section>
