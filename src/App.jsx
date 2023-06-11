@@ -9,7 +9,7 @@ import {
   Contact,
 } from "./Pages/ExportPages";
 // Componets
-import { Header, Footer } from "./Components/ExportComponents";
+import { Header, Footer, ProductDetails } from "./Components/ExportComponents";
 // Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +34,7 @@ function App() {
               </AdminOnlyRoute>
             }
           ></Route>
+          <Route path="/product-details/:id" element={<ProductDetails />} />
         </Routes>
         <Footer />
       </BrowserRouter>

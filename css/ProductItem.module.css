@@ -1,4 +1,5 @@
 .grid {
+  border: 1px solid transparent;
   width: 24rem;
   background-color: #fff;
   margin: 5px;
@@ -41,6 +42,7 @@
 }
 
 .list {
+  border: 1px solid transparent;
   width: 100%;
   height: 28rem;
   max-height: 32rem;
