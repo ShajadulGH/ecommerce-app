@@ -48,6 +48,9 @@
   h2 {
     font-size: 4.5rem;
   }
+  p {
+    font-size: 2rem;
+  }
 }
 
 @keyframes slide-up {
@@ -60,12 +63,6 @@
     top: 17rem;
   }
 }
-
-// @media screen and (max-width: 600px) {
-//   .content {
-//     width: 80%;
-//   }
-// }
 
 .content > * {
   color: #fff;
@@ -105,4 +102,14 @@ hr {
   height: 2px;
   background: #fff;
   width: 50%;
+}
+@media screen and (max-width: 600px) {
+  .content {
+    h2 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.5rem;
+    }
+  }
 }
