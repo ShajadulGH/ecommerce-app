@@ -17,13 +17,6 @@
   transition: all 0.5s ease;
 }
 
-// @media screen and (min-width: 600px) {
-//   .slide img {
-//     width: 100%;
-//     height: 100%;
-//   }
-// }
-
 .slide img {
   height: 100%;
 }
@@ -113,3 +106,8 @@ hr {
     }
   }
 }
+// @media screen and (max-width: 600px) {
+//   .slide img {
+
+//   }
+// }
