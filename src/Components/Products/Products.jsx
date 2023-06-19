@@ -11,8 +11,9 @@ import {
 
 const Products = () => {
   const { allProducts, isLoading } = FetchData("products");
-
+  console.log(allProducts);
   const products = useSelector(selectProducts);
+  console.log(products);
   const dispatch = useDispatch();
 
   useEffect(() => {
