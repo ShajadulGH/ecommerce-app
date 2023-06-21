@@ -3,6 +3,7 @@ import styles from "./Home.module.scss";
 import Products from "../../Components/Products/Products";
 import Slider from "../../Components/Slider/Slider";
 import { useEffect } from "react";
+import SliderTest from "../../Components/Slider/SliderTest";
 const Home = () => {
   const url = window.location.href;
   const scrollToProducts = () => {
@@ -20,7 +21,8 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <Slider />
+      <SliderTest />
+      {/* <Slider /> */}
       <Products />
     </div>
   );

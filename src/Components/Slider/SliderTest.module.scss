@@ -1,0 +1,46 @@
+.content {
+  position: absolute;
+  text-align: center;
+  top: 23rem;
+  left: 50%;
+  opacity: 1;
+  width: 50%;
+  padding: 3rem;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: column;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  animation: slide-up 1s ease 0.5s;
+  animation-fill-mode: forwards;
+
+  h2 {
+    font-size: 4.5rem;
+  }
+  p {
+    font-size: 2rem;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    visibility: visible;
+    top: 23rem;
+  }
+  100% {
+    visibility: visible;
+    top: 17rem;
+  }
+}
+
+.content > * {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1080px) {
+  .content {
+    display: none;
+  }
+}
