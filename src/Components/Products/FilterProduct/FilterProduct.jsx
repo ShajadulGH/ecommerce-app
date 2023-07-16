@@ -1,18 +1,26 @@
 import React, { useEffect } from "react";
 import styles from "./Filter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProducts } from "../../../Redux/Features/prouctsSlice";
+import {
+  selectMaxPrice,
+  selectMinPrice,
+  selectProducts,
+} from "../../../Redux/Features/prouctsSlice";
 import {
   FILTER_BY_BRAND,
   FILTER_BY_CATEGORY,
+  FILTER_BY_PRICE,
 } from "../../../Redux/Features/filterSlice";
 import { useState } from "react";
 
 const Filter = () => {
   const [category, setCategory] = useState("All");
   const [brand, setBrand] = useState("All");
-  const [price, setPrice] = useState(3000);
   const products = useSelector(selectProducts);
+  const minPrice = useSelector(selectMinPrice);
+  const maxPrice = useSelector(selectMaxPrice);
+  const [price, setPrice] = useState(50000);
+
   console.log(products);
   const dispatch = useDispatch();
   const allCategories = [
@@ -26,7 +34,9 @@ const Filter = () => {
   useEffect(() => {
     dispatch(FILTER_BY_BRAND({ products, brand }));
   }, [dispatch, products, brand]);
-
+  useEffect(() => {
+    dispatch(FILTER_BY_PRICE({ products, price }));
+  }, [dispatch, products, price]);
   const filterProducts = (cat) => {
     setCategory(cat);
     dispatch(FILTER_BY_CATEGORY({ products, category: cat }));
@@ -61,9 +71,15 @@ const Filter = () => {
         </select>
 
         <h4>Price</h4>
-        <p>1000</p>
+        <p>{`$${price}`}</p>
         <div className={styles.price}>
-          <input type="range" min="100" max="1000" />
+          <input
+            type="range"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            min={minPrice}
+            max={maxPrice}
+          />
         </div>
         <br />
         <button className="--btn --btn-amazon">Clear Filter</button>
