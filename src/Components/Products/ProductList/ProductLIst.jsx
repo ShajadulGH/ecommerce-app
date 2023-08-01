@@ -21,7 +21,7 @@ const ProductList = ({ products }) => {
   const filteredProducts = useSelector(selectFilteredProducts);
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(1);
+  const [productsPerPage] = useState(2);
   // Get Current Products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -78,7 +78,7 @@ const ProductList = ({ products }) => {
             {currentProducts.map((product) => {
               return (
                 <div key={product.id}>
-                  <ProductItem {...product} grid={grid} />
+                  <ProductItem {...product} grid={grid} product={product} />
                 </div>
               );
             })}

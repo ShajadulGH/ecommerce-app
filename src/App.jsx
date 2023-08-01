@@ -7,6 +7,7 @@ import {
   Admin,
   Home,
   Contact,
+  Cart,
 } from "./Pages/ExportPages";
 // Componets
 import { Header, Footer, ProductDetails } from "./Components/ExportComponents";
@@ -35,6 +36,7 @@ function App() {
             }
           ></Route>
           <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </BrowserRouter>

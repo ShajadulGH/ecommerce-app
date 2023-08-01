@@ -1,0 +1,65 @@
+.table {
+  padding: 5px;
+  width: 100%;
+  overflow-x: auto;
+}
+.table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.4rem;
+}
+.table table thead {
+  border-top: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+}
+.table table th {
+  border: 1px solid #eee;
+}
+.table table th,
+.table table td {
+  vertical-align: top;
+  text-align: left;
+  padding: 8px;
+}
+.table table th.icons > *,
+.table table td.icons > * {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.table table tr {
+  border-bottom: 1px solid #ccc;
+}
+.table table tr:nth-child(even) {
+  background-color: #eee;
+}
+.table .summary {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.table .summary .card {
+  padding: 2rem;
+}
+.table .summary .card .text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.table .summary .card .text h3 {
+  color: var(--color-danger);
+}
+.table .summary .card button {
+  margin-top: 5px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+}
+.count button {
+  border: 1px solid var(--darkblue);
+}
+.count > * {
+  margin-right: 1rem;
+}
