@@ -4,7 +4,7 @@ import Card from "../../Card/Card";
 import { Link } from "react-router-dom";
 import {
   ADD_TO_CART,
-  // CALCULATE_TOTAL_QUANTITY,
+  CALCULATE_TOTAL_QUANTITY,
 } from "../../../Redux/Features/cartslice";
 import { useDispatch } from "react-redux";
 const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
@@ -19,7 +19,7 @@ const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
   };
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
-    // dispatch(CALCULATE_TOTAL_QUANTITY());
+    dispatch(CALCULATE_TOTAL_QUANTITY());
   };
   return (
     <Card extraCSS={grid ? `${styles.grid}` : `${styles.list}`}>
