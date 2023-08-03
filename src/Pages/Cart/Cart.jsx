@@ -12,6 +12,7 @@ import {
   selectCartTotalAmount,
   selectCartTotalQuantity,
 } from "../../Redux/Features/cartslice";
+import { selectIsLoggedIn } from "../../Redux/Features/authSlice";
 import styles from "./Cart.module.scss";
 import { FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ import Card from "../../components/card/Card";
 
 const Cart = () => {
   const cartItems = useSelector(selectCartItems);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
   const dispatch = useDispatch();

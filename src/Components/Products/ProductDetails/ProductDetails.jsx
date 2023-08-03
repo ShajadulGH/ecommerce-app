@@ -3,7 +3,14 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../../Firebase/config";
 import { Link, useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.scss";
+import {
+  ADD_TO_CART,
+  CALCULATE_TOTAL_QUANTITY,
+  DECREASE_CART,
+} from "../../../Redux/Features/cartslice";
+import { useDispatch } from "react-redux";
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +27,18 @@ const ProductDetails = () => {
     setIsLoading(false);
   };
   console.log(product);
+  const addToCart = (product) => {
+    dispatch(ADD_TO_CART(product));
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  };
+  const increaseProduct = (product) => {
+    dispatch(ADD_TO_CART(product));
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  };
+  const decreaseProduct = (product) => {
+    dispatch(DECREASE_CART(product));
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  };
   return (
     <section>
       <div className={`container ${styles.product}`}>
@@ -44,13 +63,28 @@ const ProductDetails = () => {
             </p>
 
             <div className={styles.count}>
-              <button className="--btn">-</button>
+              <button
+                className="--btn"
+                onClick={() => decreaseProduct(product)}
+              >
+                -
+              </button>
               <p>
                 <b>1</b>
               </p>
-              <button className="--btn">+</button>
+              <button
+                className="--btn"
+                onClick={() => increaseProduct(product)}
+              >
+                +
+              </button>
             </div>
-            <button className="--btn --btn-amazon">ADD TO CART</button>
+            <button
+              className="--btn --btn-amazon"
+              onClick={() => addToCart(product)}
+            >
+              ADD TO CART
+            </button>
           </div>
         </div>
       </div>
