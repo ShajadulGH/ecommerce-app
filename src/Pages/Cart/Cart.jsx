@@ -16,7 +16,7 @@ import { selectIsLoggedIn } from "../../Redux/Features/authSlice";
 import styles from "./Cart.module.scss";
 import { FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import Card from "../../components/card/Card";
+import Card from "../../Components/Card/Card";
 
 const Cart = () => {
   const cartItems = useSelector(selectCartItems);
